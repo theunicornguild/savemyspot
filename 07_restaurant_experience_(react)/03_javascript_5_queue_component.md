@@ -23,4 +23,12 @@ componentDidMount() {
 }
 ```
 
+Before our conversation comes to an end, we need to stop listening. So lets go ahead and turn off our socket ears on the `restaurantQ` message.
+
+```
+componentWillUnmount() {
+  socketStore.socket.off("restaurantQ");
+}
+```
+
 And that concludes our intricate conversation. 

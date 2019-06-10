@@ -32,15 +32,12 @@ You might notice that in the `Queue` components state, we have `currentQ` and  `
 
 ```
 this.state = {
-      restaurant: this.props.restaurant,
       currentQ: null,
       spot: null,
   };
 ```
 
 So now our `Queue` has its ears perched for the `q info`, as soon we get the message we will store that information in the state to be displayed to the user. 
-
-THE DATA BEING SENT LOOKS LIKE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ```
 socket.socket.on("q info", data => {
@@ -60,6 +57,21 @@ io.to(socket.id).emit("q info", {
 });
 ```
 The `user spot` emitter follows the same exact logic, except it is emitting the queue position of that user. 
+
+
+Now that we have essentially turned our ears on for these messages, we have to turn them off to avoid missed information when the component is not yet mounted.
+
+SYou know how sometimes you wish you could tune some people out, well sockets possess that technology. So when the component will unmount we turn the listeners off by explicitly telling the socket which messages to stop listening to. 
+
+We have three listeners set up waiting for `q info`, `user spot`, and `update queue`. 
+
+```
+componentWillUnmount() {
+    socketStore.socket.off("q info");
+    socketStore.socket.off("user spot");
+    socketStore.socket.off("update queue");
+  }
+```
 
 If you continue to explore the `Queue`, you will notice the `getQueueNumber()` method.
 As a user I care about the number of people in the queue if I, myself, am not in the queue. So we check whether the spot is null or not. If it is not null, we display the users position in the queue. If it is, we display the total number of people in the queue. 
@@ -106,13 +118,23 @@ getQueueOptions() {
             <Text>Leave Q</Text>
           </Button>
         );
+      }
+      else {
+        <Spinner
+              user={authStore.user.user_id}
+              restaurant={this.props.restaurant.id}
+            />
       } 
   }
   ....
 }
 ```
+![join queue](https://i.imgur.com/Xxf4GNA.png) 
+![leave queue](https://i.imgur.com/a1oRGUw.png)
 
-However the join button is rendered in a component of its own- `spinner`. Go ahead and take a look at the spinner, its there to present an input for the number of guests before joining the queue. You'll find the join button there, so we will go ahead and add our `onPress` functionality to it to call the `addToQ` method from our socket store. 
+However the join button is rendered in a component of its own- `spinner`. We call this component if the position of the user does not exist and send along the `user id` and `restaurant id` as props.
+
+ Go ahead and take a look at the spinner, its there to present an input for the number of guests before joining the queue. You'll find the join button there, so we will go ahead and add our `onPress` functionality to it to call the `addToQ` method from our socket store. 
 
 ```
 return (

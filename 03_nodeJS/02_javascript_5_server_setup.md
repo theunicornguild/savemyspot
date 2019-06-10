@@ -2,6 +2,7 @@
 
 Lets get down to sock business. We will be importing the packages we installed earlier and intialazing our express app. 
 
+![mulan gif](https://media1.tenor.com/images/289f054055b69e5128d98270cbed46f5/tenor.gif)
 ```
 var app = require("express")();
 var http = require("http").Server(app);

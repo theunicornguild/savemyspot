@@ -5,7 +5,16 @@ Now that we got our backend ready for our customers, lets go ahead and connect i
 Under the project directory, you'll find our three main folders: `Components`, `Navigation`, `Stores`. 
 
 #### Navigation 
-Navigation is mainly used to create our navigation stack and is responsible for our bottom tab in which we have two tabs- the restaurant list and the account information. In the restaurant tab, we will be able to navigate from the list itself to the detail page of each restaurant. The detail page will display the queue information along with the ability to browse through the menu.
+Navigation is mainly used to create our navigation stack to move between our screens. If you go ahead and take a look at the file, you will notice we have set up four routes.
+
+1. `RestaurantList` - list of all restaurants
+2. `RestaurantDetail` - the screen of the specific restaurant where the user will be able to join and leave the queue
+3. `Login` - the screen with the form where the user can login
+4. `Signup` - the screen with the signup form to create an account
+
+Our app will initially be directed to the `RestaurantList` in which the user will be able to navigate to each detail page upon a simple press command. 
+
+![restaurant list screen](https://i.imgur.com/rg1ytmr.png) | ![restaurant detail screen](https://i.imgur.com/JdVldfl.png)
 
 #### Stores 
 You have two MobX stores available to you, the `authStore` and the `restaurantStore`. 
@@ -18,12 +27,18 @@ We will be altering one of our components to showcase our data that we are recei
 
 Before we get started a quick brief description on the components available to you. Take a few minutes to go through the code and absorb as much as you can. 
 
-The Account component simply places the Sign in and Login pages in a tab format. Sign in and Login are essentially forms of the required information for each action. Logging in you need to enter a username and password. However a few more fields are necessary upon signing up including: username, first and last name, email, and a password. The actions for each form are linked to the `authStore` where we use axios to make the necessary API call depending on the action.
+The `Login` and `SignUp` components are essentially forms to accept the required information for each action. The login functionality requires a `username` and `password`, while signup requires additonal information such as `first and last name` and `email`. The actions for each form are linked to the `authStore` where we use axios to make the necessary API call.
 
-The Restaurant List is well a list of restaurant items. We have a `restaurantStore` where our API call functions are made and we store the information to be observed by our components. 
+The Restaurant List is well a list of `restaurant objects`. We have a `restaurantStore` where our API call functions are made and we store the information to be observed by our components.
 
-To navigate to the restaurants detail page we pass the id as parameter and use it to fetch the detail from our API. 
+The `restaurant object` consists of the restaurant name and description displayed on top of the restaurant picture. 
 
-Our restaurant detail page is shared by both the queue information and the menu information. The `Menu` is a list of items under their respective categories. As for the `Queue`, you'll notice that you have the UI set up for you, you just need to add the information in the spaces provided. Allright go ahead! 
+To navigate to the restaurants detail page we pass the id as parameter and use it to fetch the detail from our API.
 
-Just kidding, we'll do it together. 
+In the `RestaurantDetail` component, you'll notice the `fetchARestaurant` method being called upon mounting the component. This uses the id we passed to fetch the correct information of the restaurant we selected. And displays it in the specified format. 
+
+Our restaurant detail page is shared by both the queue information and the menu information. The `Menu` is a list of items under their respective categories. The items are displayed in toggable dropdown format under `Category` Tabs. 
+
+As for the `Queue`, you'll notice that you have the UI set up for you, which consists of circular objects representing a plate placed on top of the restaurant image. You just need to add the information in the spaces provided. Allright go ahead! 
+
+Just kidding, we'll do it together. But first we need to gain access to that information. Recall that were relaying the information using sockets. So our first step is to create a `socket store` to set up our connection to the server. 
