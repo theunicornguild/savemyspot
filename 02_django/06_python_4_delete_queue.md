@@ -2,7 +2,7 @@
 
 We also have to take into account the updated situation when the customers are no longer waiting for their turn but waiting for their food. In this case, they are no longer part of the queue so we need to remove them from it. We do this in our `delete` method. In order to delete a queue object we need its `ID`, and once again that information is sent along with the information. 
 
-Removing a person from the queue is a bit more complicated than a simple click. Thanos had to go through the hassle of collecting all the infinity stones before wiping half of the population with a simple snap. We are lucky enough for our search for the stones is much simpler since its all collected in one environment, the virtual environment you have placed this project in. 
+Removing a person from the queue is a bit more complicated than a simple click. Thanos had to go through the hassle of collecting all the infinity stones before wiping half of the population with a simple snap. We are lucky enough for our search for the stones is much simpler since its all collected in one environment, the virtual environment you have placed this project in. _(gonna keep this in for now)_
 
 There is a bunch of logic that needs to be done when a user is removed. First lets address the two situations in which a user is removed from the queue: a) its the users turn to be seated, b) the user changes his/her mind and leave the queue. 
 

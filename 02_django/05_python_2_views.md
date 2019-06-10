@@ -13,7 +13,7 @@ def get(self, request):
 	return Response(QueueListSerializer(queue, many=True).data)
 ```
 
-In our `post` method we add a user to the queue. We will need the selected restaurant and the number of guests. Just like we did in our `get` method, we will be including this information along with the request we make, and we will send back the restauraunt details to have the updated queue information available. We start by initializing a `queue` object with the information we were provided, then call the `increment_position` function to obtain an accurate position and then save it. 
+In our `post` method we add a user to the queue. We will need the selected restaurant and the number of guests. Just like we did in our `get` method, we will be including this information along with the request we make, and we will send back the restauraunt details to have the updated queue information available. We start by initializing a `queue` object with the information we were provided, then call the `increment_position` function to obtain an accurate position before saving it. 
 
 ```
 def post(self, request):
@@ -23,6 +23,7 @@ def post(self, request):
 	queue_obj = Queue(user = user, restaurant = restaurant, guests = obj['guests'] )
 	queue_obj.increment_position()
 	queue_obj.save()
+	
 	return Response(RestaurantListSerializer(restaurant).data)
 ```
 

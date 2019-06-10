@@ -128,7 +128,7 @@ function getRestaurantQ(socket, restaurantID, user) {
 }
 ```
 
-We are not done yet, we have the function, but we are not using it anywhere. We want to transmit this information when the client asks for it.    
+We are not done yet, we have the function, but we are not using it anywhere. We want to transmit this information when the client asks for it.
 
 So we will set up a listener on our server that listens to a message that matches `restaurant room` when it does it will call the function and the server will emit its on message. 
 
@@ -158,6 +158,18 @@ io.on("connection", function(socket) {
   })
 })
 ```
+
+Amazing, now to avoid trapping our users in a room, we need to have the oppurtunity to leave. We do that with a simple `leave` command. So ideally when a user navigates away from the restaurants detail page, we require the user to leave the room. This allows us to send the correct information corresponding to each restaurant.
+
+This time our listener is waiting for a `back` message to signfiy that the user has gone back in his/her decision to stay in the restaurant page.
+
+```
+  socket.on("back", function(data) {
+    socket.leave(data);
+  });
+```
+
+We named the rooms on their respective room ids, so to leave the room, we simply need to provide the `id`. We are passing that via `data` on the client side. 
 
 See? Its quite simple. That ticks off item number 1 of our checklist.
 

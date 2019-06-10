@@ -1,6 +1,8 @@
 # Node App Setup
 
-We will be using Node to set up the server side of our socekts. Lets go ahead and create our node app. Recall that npm is a package manager that comes with Node.js
+We will be using Node and `Socket.IO` to set up the server side of our socekts. Lets go ahead and create our node app. Recall that npm is a package manager that comes with Node.js.
+
+Read more about the socket.io library [here.](https://socket.io/get-started/chat/)
 
 To start off create a new repository for your project and initialize npm once youre inside your project. You will be asked to fill in some information or you can skip by pressing enter and typing `yes` when asked to confirm. 
 ```
