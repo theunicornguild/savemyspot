@@ -1,5 +1,3 @@
-# Starter Files
-
 Django: https://github.com/nalmutairi/savemyspot_django
 
 Node: https://github.com/nalmutairi/savemyspot_node

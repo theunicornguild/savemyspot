@@ -1,13 +1,14 @@
-# Socket Store
-
 Allright, we will be getting our data in messages sent from our socket server. A quick recall on the messages we are listening to in our backend. 
 
-- `"restaurant room"` : will respond with updated queue information for the specified restaurant for the requesting user
+- `"restaurant room"`: will respond with updated queue information for the specified restaurant for the requesting user
 - `"join q"`: will respond by adding the user to the queue and sending the updated information to all clients
-- `"leave q"` : will respond by removing the user to the queue and sending the updated information to all clients
+- `"leave q"`: will respond by removing the user to the queue and sending the updated information to all clients
 
-So right here in our react app, we need to call our emitters in the appropriate locations. But first, lets write our emitters. Before we use sockets, we need to install the socket.io library.
+Notice that our messages correspond to our tasks on your Trello board. We have switched our focus to the frontend aspect of our tasks in the `backend column`. Since we will be working on all our messages/tasks simultaneously, let’s go ahead and move all our cards completed in the `backend` to the `frontend` stack.
 
+So right here in our react app, we need to call our emitters in the appropriate locations. But first, let’s write our emitters. Before we use sockets, we need to install the socket.io library.
+
+Run the following command in your terminal in your project directory. 
 ```
 yarn add socket.io-client
 ```
@@ -31,7 +32,7 @@ In the constructor, we are instantiating a new socket and creating a new connect
 
 Now that we have this communication tool, we can emit and listen to events. We will be writing functions for each event we are emitting. 
 
-When we navigate to a restaurants detail page, we need to get the updated queue information from the server. In other words, when we press on a specific restaurant we need to ping the server to have it respond to our request, we do that through an emitter.
+When we navigate to a restaurants detail page, we need to get the updated queue information from the server. In other words, when we press on a specific restaurant, we need to ping the server to have it respond to our request, we do that through an emitter.
 
 ```
 getRestaurant(restaurant, user) {
@@ -54,9 +55,9 @@ leaveQ(queueID) {
 }
 ```
 
-Very straightforward, and now we expect our server to be an obedient listener and go ahead and remove that user from the queue. When that happens, the server is emitting an `update queue` message that will trigger the client to request the updated queue information. If it seems confusing, just go back and look at your node app. The communication between the client and server is much clearer when youre reading both sides of the conversation.
+Very straightforward, and now we expect our server to be an obedient listener and go ahead and remove that user from the queue. When that happens, the server is emitting an `update queue` message that will trigger the client to request the updated queue information. If it seems confusing, just go back and look at your node app. The communication between the client and server is much clearer when you’re reading both sides of the conversation.
 
-We are now able to leave the queue. Before we can leave the queue, we must be able to join it. Our `joinQ` method takes three parameters- the user, the restaurant, and number of guests. We need all that information when we create a new queue object. The creation itself is happening when our socket server makes the request to the API. From the frontend, we simply need to supply the necessary data. 
+We are now able to leave the queue. Hold up, before we can leave the queue, we must be able to join it. Our `joinQ` method takes three parameters- the user, the restaurant, and number of guests. We need all that information when we create a new queue object. The creation itself is happening when our socket server makes the request to the API. From the frontend, we simply need to supply the necessary data. 
 
 ```
 joinQ(user, restaurant, numOfGuests) {
@@ -68,4 +69,8 @@ joinQ(user, restaurant, numOfGuests) {
   }
 ```
 
-Allright cool, now that we have our methods, we need to be call them somewhere. Somewhere over the rainbow...okay back on track, itll be somewhere much closer than a rainbow, your `Queue` component.
+Allright cool, now that we have our methods, we need to be call them somewhere. Somewhere over the rainbow...okay back on track, it’ll be somewhere much closer than a rainbow, your `Queue` component.
+ 
+ Hold up, the leprechaun at the end of the rainbow wants to remind to push your code to GitHub. 
+
+
