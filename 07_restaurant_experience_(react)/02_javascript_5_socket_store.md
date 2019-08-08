@@ -1,5 +1,3 @@
-# Socket Store
-
 Create a `socketStore` file under Stores and initialize the connection to the socket server.
 
 ```
@@ -21,13 +19,15 @@ restaurantSignIn(restaurantID) {
 }
 ```
 
-Our next functionality is to seat our guests. Again seating a guest is simply deleting them from the queue. We only need to pass the queue ID to do so, we will be emitting the same message the customer does when leaving the queue since it follows the same logic. 
+Our next functionality is to seat our guests. Again, seating a guest is simply deleting them from the queue. We only need to pass the queue ID to do so, we will be emitting the same message the customer does when leaving the queue since it follows the same logic. 
 
 ```
 seatGuest(queueID) {
   this.socket.emit("leave q", queueID);
 }
 ```
+
+Since we are now ready to tackle on our tasks in the frontend, lets reflect that in our Trello board by moving the cards for the backend pile to the frontend pile. 
 
 
 

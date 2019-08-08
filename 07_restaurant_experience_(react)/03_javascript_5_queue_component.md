@@ -1,10 +1,10 @@
-# Queue Component
+Our methods are available to us from our socket store. Let’s add the functionality by calling them in our main `Queue` component.
 
-Our methods are available to us from our socket store. Lets add the functionality by calling them in our main `Queue` component. 
+Keep track of the task you are about to embark on, drag the appropriate card to the `Doing` pile.
 
-Recall that we set up our listeners as soon the component is mounted, so we need to listen to the `restaurantQ` message. We will be storing the data we recieve in our state, you'll notice that it has variables to store a restaurant and a queue. We will be using the restaurant data to create a more targeted display for each restaurant. 
+Recall that we set up our listeners as soon the component is mounted, so we need to listen to the `restaurantQ` message. We will be storing the data we receive in our state, you'll notice that it has variables to store a restaurant and a queue. We will be using the restaurant data to create a more targeted display for each restaurant. 
 
-Lets go ahead and request our restaurant information from our node server. Recall that we created a restaurantSignIn method in our socket store that we will use to do just that. We are sending back our restaurant ID which we stored in our `authStore`.
+Let’s go ahead and request our restaurant information from our node server. Recall that we created a restaurantSignIn method in our socket store that we will use to do just that. We are sending back our restaurant ID which we stored in our `authStore`.
 
 ```
 socketStore.restaurantSignIn(authStore.restaurant);
@@ -23,7 +23,7 @@ componentDidMount() {
 }
 ```
 
-Before our conversation comes to an end, we need to stop listening. So lets go ahead and turn off our socket ears on the `restaurantQ` message.
+Before our conversation comes to an end, we need to stop listening. So, let’s go ahead and turn off our socket ears on the `restaurantQ` message.
 
 ```
 componentWillUnmount() {
@@ -31,4 +31,19 @@ componentWillUnmount() {
 }
 ```
 
+As part of our table, we have a seat button. This button will call on our `seatGuest` function from our socket store. 
+
+In `src/Components/Queue/QueueRow.js` you will find the `Seat` button being rendered. All we have to do is tell it upon clicking on it we want to go head and send over our socket message.
+
+```
+<button
+  className="btn btn-dark"
+  onClick={() => socketStore.seatGuest(queue.id)}
+>
+  Seat
+</button>
+```
+
 And that concludes our intricate conversation. 
+
+Final wise words: git add, git commit, git push.
