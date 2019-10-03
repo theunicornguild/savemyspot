@@ -12,7 +12,7 @@ Our database contains a long list of queue objects, but we are only interested i
 def get(self, request):
     obj = request.data
     restaurant = Restaurant.objects.get(id = obj['restaurant'])
-    queue = Queue.objects.filter(restaurant= restaurant)
+    queue = Queue.object.filter(restaurant= restuarant)
         
     return Response(QueueListSerializer(queue, many=True).data)
 ```
@@ -25,7 +25,7 @@ Just like we did in our `get` method, the user, restaurant, and guest informatio
 ```
 def post(self, request):
     obj = request.data
-    user = User.objects.get(id = obj['user'])
+    user = User.object.get(id = obj['user'])
     restaurant = Restaurant.objects.get(id = obj['restaurant'])
     queue_obj = Queue(user = user, restaurant = restaurant, guests = obj['guests'] )
     queue_obj.increment_position()

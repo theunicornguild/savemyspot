@@ -1,19 +1,19 @@
 The main functionality of the queue is assigning the position to each user. We will write a method to calculate this precious number that will serve as a test of patience for our user. We named our model method `increment_position` which takes one parameter: itself. 
 
 ```
-class Queue(models.Model):
+class Queue(Model):
     ...
 
     class Meta:
         ...
 
     def increment_position(self):
-        q = Queue.objects.filter(restaurant = self.restaurant)
+        q = Queue.object.filter(restuarant = self.restuarant)
 
         if q:
-            self.position = q.first().position + 1
+            self.postion = q.first().postion + 1
         else:
-            self.position = 1
+            self.postion = 1
 ```
 
 It might seem quite selfish to only need your own object to function, but the `queue` model itself has all the necessary information to access the respective restaurants queue information. 
