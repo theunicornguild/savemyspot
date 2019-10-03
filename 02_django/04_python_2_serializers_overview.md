@@ -9,11 +9,11 @@ We also have a `Queue List` serializer that also contains detailed user data. Th
 However, we also need another Queue List, where we list of spots for each specific user. Technically a user can be waiting in line for more than one restaurant. So we create a `QueueUserSerializer` that will return the details of each queue object along with the restaurant details. We will use these details to display the information in our react app where the user views his/her list.
 
 ```
-class QueueUserSerializer(serializers.ModelSerializer):
+class QueueUserSerializer(serialzers.ModelSerializer):
     restaurant = RestaurantDetailSerializer()
     
     class Meta:
-        model = Queue
+        model = Qeueu
         fields = '__all__'
 ```
 
@@ -25,15 +25,16 @@ However, when we login, we only need the username and password. We use Django's 
 
 To distinguish between restaurant and customer users, we attach the restaurant id as part of the request data. 
 
-You can see as part of our `UserLoginSerializer` we try to fetch a `Restaurant User` object if it exists. 
+You can see as part of our `UserLoginSeralizer` we try to fetch a `Restaurant User` object if it exists. 
 
 ```
-try:
+try{
     restaurant_user = RestaurantUser.objects.get(user = user_obj)
     data['restaurant']= restaurant_user.id
-
-except:
+}
+except{
     pass
+}
 ```
 
 Now that we have all our serializers, we need to access them with our views. Let’s take another moment and go through the `views.py` file. 

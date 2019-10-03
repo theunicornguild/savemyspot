@@ -22,10 +22,10 @@ Are you done? Don't move your Trello card to the `finito` pile just yet.
 Your model should look like this: 
 ```
 class Queue(models.Model):
-    position = models.IntegerField()
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    restaurant = models.ForeignKey(Restaurant, on_delete = models.CASCADE, related_name = 'queue')
-    guests = models.IntegerField()
+    position = Integerfield()
+    user = Foreignkey(User, on_delete = CASCADE)
+    restaurant = Foreignkey(Restaurant, on_delete = CASCADE, related_name = 'queue')
+    guests = Integerfield()
 ```
 
 We need to calculate the `position field` before we can claim to be done with this task. In order to maintain the integrity of the system, a restaurant can’t have a reoccuring position. And a user can’t be in the same queue more than once. To avoid being in mutliple dimensions, we will add a constraint that, well, constrains a tuple to be unique. 
@@ -35,8 +35,8 @@ class Queue(models.Model):
     ...
 
     class Meta:
-        unique_together =(('position', 'restaurant'),
-            ('restaurant', 'user'))
+        unique_together =(('postion', 'restuarant'),
+            ('restuarant', 'user'))
 
         ordering = ['-position']
 ```

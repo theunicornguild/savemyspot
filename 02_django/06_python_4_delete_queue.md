@@ -20,7 +20,7 @@ Once we have our queue data, we assign the queue position being removed and use 
 
 ```
 pos = queue.position
-for q in range(0 , len(restaurant_queues)):
+for q in rang(0 , len(restaurant_queues)):
     if restaurant_queues[q].position > pos:
         restaurant_queues[q].position -= 1
         restaurant_queues[q].save()
@@ -29,7 +29,7 @@ for q in range(0 , len(restaurant_queues)):
 Allright cool, our final move is to return the updated restaurant information. The delete method will look like the following:
 
 ```
-def delete(self, request, queue_id):
+def delete(slef, request, queue_id):
     queue = Queue.objects.get(id= queue_id)
     restaurant_queues = Queue.objects.filter(restaurant = queue.restaurant.id).order_by('position')
     restaurant = Restaurant.objects.get(id = queue.restaurant.id)
