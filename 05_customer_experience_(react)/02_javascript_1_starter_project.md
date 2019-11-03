@@ -1,5 +1,3 @@
-Now that we got our backend ready for our customers, let’s go ahead and connect it to the frontend. The customer will be accessing the functionality through a mobile application. A react app has already been created for you with some basic design. 
-
 Under the project directory, you'll find our three main folders: `Components`, `Navigation`, `Stores`. 
 
 #### Navigation 

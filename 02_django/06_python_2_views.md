@@ -1,6 +1,6 @@
-Let’s assume you’re tired from all this imaginary cat walking and go through the `Queue View` together. You may have noticed that almost all our views are subclasses of the rest framework generic views. However, we require a more curated response for our `queue` so we will be manually doing it.  
+Let’s assume you’re tired from all this imaginary cat walking and go through the `QueueView` together. You may have noticed that almost all our views are subclasses of the rest framework generic views. However, we require a more curated response for our `queue` so we will be manually doing it.  
 
-If you turn your attention to your `../q/api/views.py` , you'll notice the structure of the `Queue View` is available to you, your goal is to fill in each request with its appropriate functionality. 
+If you turn your attention to your `../savemyspot_django/api/views.py` , you'll notice the structure of the `QueueView` is available to you, your goal is to fill in each request with its appropriate functionality. 
 
 ## Get Queue
 
@@ -35,5 +35,3 @@ def post(self, request):
 ```
 
 Now we have taken care of displaying the queue and adding oneself to the queue. The next step is to remove a user from the queue.
-
-

@@ -2,11 +2,11 @@ Before the show starts, we need to use our models to create our API views. Take 
 
 The menu data for a restaurant is compiled in the `CategoryListSerializer` in which each category has its own items listed under it. Our main goal relies on specific information related to each restaurant - mainly the menu and queue data. We created a serializer `RestaurauntDetailSerializer` that holds the `category`, and `operating time` information. 
 
-However, our main page on the app showcases a list of all our available restaurants. We have a `Restaurant List` serializer that encompasses the restaurants minimal introductory information (name, picture, description). In addition to that, we supply the total number of queue objects for each restaurant as well as the operating times. From a user experience perspective, having that information available on the main page allows for a better navigational flow between the app pages.
+However, our main page on the app showcases a list of all our available restaurants. We have a `RestaurantListSerializer` that encompasses the restaurants minimal introductory information (name, picture, description). In addition to that, we supply the total number of queue objects for each restaurant as well as the operating times. From a user experience perspective, having that information available on the main page allows for a better navigational flow between the app pages.
 
-We also have a `Queue List` serializer that also contains detailed user data. This is important when the restaurant is fetching the queue- to associate each queue object to the name of a person.
+We also have a `QueueListSerializer` that also contains detailed user data. This is important when the restaurant is fetching the queue- to associate each queue object to the name of a person.
 
-However, we also need another Queue List, where we list of spots for each specific user. Technically a user can be waiting in line for more than one restaurant. So we create a `QueueUserSerializer` that will return the details of each queue object along with the restaurant details. We will use these details to display the information in our react app where the user views his/her list.
+However, we also need another Queue List, where we list the spots for each specific user. Technically a user can be waiting in line for more than one restaurant. So we create a `QueueUserSerializer` that will return the details of each queue object along with the restaurant details. We will use these details to display the information in our react app where the user views his/her list.
 
 ```
 class QueueUserSerializer(serializers.ModelSerializer):

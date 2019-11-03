@@ -6,7 +6,7 @@ Initially, our server building is roomless. We will end up with a list of rooms 
 
 So, whoever tries to access the information first is responsible for creating the room, but that doesn’t give any more power than simply being a member of the room where it happens. Each room will be named by the specified restaurant ID number since we know that to be unique. 
 
-This how the code to join a room will look like:
+This is how the code to join a room will look like:
 
 ```
 socket.join(restaurant.id)
