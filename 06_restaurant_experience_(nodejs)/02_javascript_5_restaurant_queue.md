@@ -49,14 +49,13 @@ As part of our delete response, we are accessing the restaurants details, so und
 io.on("connection", function(socket) {
   ...
 
-  socket.on("seat guest", function(data) {
+  socket.on("leave q", function(data) {
     axios
-      .delete("http://127.0.0.1:8000/queue/delete/" + data.id + "/")
+      .delete("http://127.0.0.1:8000/queue/delete/" + data + "/")
       .then(res => res.data)
       .then(restaurant => {
-        console.log(restaurant)
-        io.in(restaurant.id).emit("restaurantQ", restaurant.queue);
         io.in(restaurant.id).emit("update queue");
+        io.in(restaurant.id).emit("restaurantQ", restaurant.queues);
       })
       .catch(err => console.error(err));
   });
@@ -65,6 +64,6 @@ io.on("connection", function(socket) {
 }
 ```
 
-Once we seat a guest, we emit the `seat guest` message to provoke the axios request to delete the specified queue object. In our API, once we delete, we are sending back a response of the specified restaurants details including the updated queue information which we are emitting back. We are also emitting the `update queue` message to the clients in the restaurant room to have the updated information available to them.
+Once we seat a guest, we emit the `leave q` message to provoke the axios request to delete the specified queue object. In our API, once we delete, we are sending back a response of the specified restaurants details including the updated queue information which we are emitting back. We are also emitting the `update queue` message to the clients in the restaurant room to have the updated information available to them.
 
 Now our restaurant client side has functional use of the queue that is continuously being updated upon request. 

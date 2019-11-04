@@ -37,8 +37,9 @@ io.on("connection", function(socket) {
   socket.on("leave q", function(data) {
     axios
       .delete("http://127.0.0.1:8000/queue/delete/" + data.id + "/")
-      .then(res => {
-        io.to(res.data.id).emit("update queue");
+      .then(res => res.data)
+      .then(restaurant => {
+        io.in(restaurant.id).emit("update queue");
       })
       .catch(err => console.error(err));
   });

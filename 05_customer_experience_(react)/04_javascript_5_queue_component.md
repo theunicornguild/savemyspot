@@ -150,7 +150,7 @@ getQueueOptions() {
             rounded
             light
             style={{ marginTop: 300 }}
-            onPress={() => socketStore.leaveQ(this.state.position);
+            onPress={() => socketStore.leaveQ(this.state.position.id);
             }
           >
             <Text>Leave Q</Text>
