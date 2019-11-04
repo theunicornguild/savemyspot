@@ -67,7 +67,3 @@ In `src/Components/Queue/QueueRow.js` you will find the `Seat` button being rend
   Seat
 </button>
 ```
-
-And that concludes our intricate conversation. 
-
-Final wise words: git add, git commit, git push.
