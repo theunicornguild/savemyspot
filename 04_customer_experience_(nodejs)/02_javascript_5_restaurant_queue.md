@@ -147,11 +147,10 @@ io.on("connection", function(socket) {
 
 Once it listens to our intended message, we can access the data sent and use it as we please. In our client side, as part of the data object, we will send the restaurant id and the user associated with the request (which in some cases would be null).
 
-Once it listens to our intended message, we can access the data sent and use it as we please. In our client side, as part of the data object, we will send the restaurant id and the user associated with the request (which in some cases would be null).
 
 We will use the data to enter the restaurant room and to call the `getRestaurantQ` method.
 
-```
+```js
 io.on("connection", function(socket) {
   socket.on("restaurant room", function(data){
     socket.join(data.restaurant.id)
@@ -164,7 +163,7 @@ Amazing, now to avoid trapping our users in a room, we need to have the opportun
 
 This time our listener is waiting for a `back` message to signify that the user has gone back in his/her decision to stay in the restaurant page.
 
-```
+```js
   socket.on("back", function(data) {
     socket.leave(data);
   });
@@ -172,12 +171,24 @@ This time our listener is waiting for a `back` message to signify that the user 
 
 We named the rooms based on their respective room ids, so to leave the room, we simply need to provide the `id`. We are passing that via `data` on the client side. 
 
+This is how the connection will look
+```js
+io.on("connection", function(socket) {
+  socket.on("restaurant room", function(data){
+    socket.join(data.restaurant.id)
+    getRestaurantQ(socket, data.restaurant.id, data.user)
+  });
+  socket.on("back", function(data) {
+    socket.leave(data);
+  });
+})
+```
 See? Its quite simple. That ticks off item number 1 of our checklist.
 
 Customer Experience:  
-[x] View current queue for each restaurant  
-[ ] Ability to join queue  
-[ ] Ability to leave queue
+\[x\] View current queue for each restaurant  
+\[ \] Ability to join queue  
+\[ \] Ability to leave queue
 
 
 Allright cool, now that we have basic functionality to view the queue, let's save this version of our project by committing and pushing our changes to git. 
@@ -185,5 +196,3 @@ Allright cool, now that we have basic functionality to view the queue, let's sav
 Now we can start taking care of the bottom two items on our checklist. To join the queue is synonymous with creating a queue object as to leave the queue is synonymous with deleting a queue object. 
 
 We will set up two listeners, one that listens when the client has joined the queue and one when the customer has left the queue.
-
-

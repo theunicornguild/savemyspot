@@ -11,7 +11,8 @@ You will find a `package.json` as part of your folder, which displays the inform
 Before we start writing the code for our server, we need to install a few packages. Run the following command in your project. 
 
 ``` 
-npm install --save express nodemon socket.io axios
+npm install --save express socket.io axios
+npm install nodemon -g --save
 ```
 
 - `express` is a web application framework for Node.js
@@ -21,6 +22,6 @@ npm install --save express nodemon socket.io axios
 
 You also have an `index.js` file which will serve as the main source of your node server code. It is currently empty but you can try running `nodemon index.js` in your terminal now. Nothing will happen, cause well, we havent done anything YET. But you can see that the server has started. 
 
-Note: `nodemon index.js` will be the command use to run your server. Everytime you save your file the server will automatically restart to run the updated script.
+Note: `nodemon index.js` will be the command used to run your server. Everytime you save your file the server will automatically restart to run the updated script.
 
 Our next step, is to set up an express app.

@@ -17,20 +17,20 @@ http.listen(3000, function() {
 });
 ```
 
-We have not created our react apps yet so we will not be setting up connections just yet. However, to connect to the server you can go to http://localhost:3000 considering were using port 3000 to establish a connection. Since we are logging a message, you will be able to see your socket id number in the terminal running the server. 
+We have not created our react apps yet so we will not be setting up connections just yet. However, to connect to the server you can go to http://localhost:3000 considering we're using port 3000 to establish a connection. Since we are logging a message, you will be able to see your socket id number in the terminal running the server. 
 
 We will write our server code while keeping in mind the functionality we need from our frontend apps. Recall that we will have two different applications- one for the customer and one for the restaurant. 
 
-Allrighty lets make a functionality checklist-
+Allrighty let's make a functionality checklist-
 
 1) Customer Experience:   
-[ ] View current queue for each restaurant  
-[ ] Ability to join queue  
-[ ] Ability to leave queue
+\[ \] View current queue for each restaurant  
+\[ \] Ability to join queue  
+\[ \] Ability to leave queue
 
 2) Restaurant Experience:  
-[ ] View entire queue   
-[ ] Ability to seat people from queue
+\[ \] View entire queue   
+\[ \] Ability to seat people from queue
 
 This checklist should match your Trello board. Here we are dealing with the backend aspect of these individual tasks. As we tackle on each task, we will move it along to the backend column, hopping over one spot closer to the done pile. 
 

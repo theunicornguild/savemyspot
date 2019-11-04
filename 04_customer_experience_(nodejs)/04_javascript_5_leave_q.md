@@ -5,7 +5,7 @@ We altered the response of our delete request in our Django project, to send bac
 Once again, upon changing the queue, we make sure to inform the user that the queue has been updated. 
 
 ```
-socket.on("leave q", function(data) {
+  socket.on("leave q", function(data) {
     axios
       .delete("http://127.0.0.1:8000/queue/delete/" + data.id + "/")
       .then(res => {
@@ -15,12 +15,33 @@ socket.on("leave q", function(data) {
   });
 ```
 
-Allright allright allright, there we have it a completed checklist. Once again, mark your progress on your Trello board by adding the final card of the customer checklist to the backend log.  
-
-Customer Experience:  
-[x] View current queue for each restaurant  
-[x] Ability to join queue  
-[x] Ability to leave queue
-
-We still have to make use of all these messages were sending and receiving. We need the second half of this conversation to make this productive, the second half is going to be our React App. Push and commit your changes to GitHub, we will be coming back to our node server to finish up the restaurant requirements later. 
-
+This is how the connection will look like now
+```js
+io.on("connection", function(socket) {
+  socket.on("restaurant room", function(data){
+    socket.join(data.restaurant.id)
+    getRestaurantQ(socket, data.restaurant.id, data.user)
+  });
+  socket.on("back", function(data) {
+    socket.leave(data);
+  });
+  socket.on("join q", function(data) {
+    axios
+      .post("http://127.0.0.1:8000/queue/create/", data)
+      .then(res => res.data)
+      .then(restaurant => {
+        io.in(restaurant.id).emit("update queue");
+      })
+      .catch(err => console.error(err));
+  });
+  socket.on("leave q", function(data) {
+    axios
+      .delete("http://127.0.0.1:8000/queue/delete/" + data.id + "/")
+      .then(res => res.data)
+      .then(restaurant => {
+        io.in(restaurant.id).emit("update queue");
+      })
+      .catch(err => console.error(err));
+  });
+})
+```

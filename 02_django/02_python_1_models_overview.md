@@ -1,5 +1,5 @@
 Ok now, let’s talk data. We need a list of restaurants and a list of food items for each restaurant. In reality, restaurants are usually associated with a food type and have different operating times depending on the day. 
-Each restaurant has a name, picture, a description, and is associated with a certain type of food. Go ahead and take a look at the starter files provided. You will notice in `../q/api/models.py` that a restaurant indeed does have that criteria. 
+Each restaurant has a name, picture, a description, and is associated with a certain type of food. Go ahead and take a look at the starter files provided. You will notice in `../savemyspot_django/api/models.py` that a restaurant indeed does have that criteria. 
 
 The `Restaurant Types` is a set of predefined cuisines for filtering purposes. You're more than welcome to add to this list to satisfy your taste buds.
 
@@ -12,5 +12,3 @@ Each category has a position in which we will use to display them in the order w
 There are two types of users- the customer and the restaurant. We will be using the predefined `User` model that Django supplies.
 
 To distinguish between the two users, we have a model that associates a user with a restaurant. So that when a restaurant connects to its respective portal, it receives the appropriate data relating to it. Restaurant users have access to the entire queue belong to them so they can have all the information needed to seat their guests in a timely manner. 
-
-

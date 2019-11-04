@@ -2,23 +2,33 @@ Let’s cut to the chase and call our socket `getRestaurant()` method when the `
 
 Don’t forget to import the socket from the store.
 
+`Components/Queue/index.js`
 ```
 import socketStore from "../../Stores/socketStore";
 ```
 Let’s write a function called `restaurantRequest()` that provides that functionality
+
+`Components/Queue/index.js`
 ```
 restaurantRequest() {
   if (AuthStore.user) {
-    socketStore.getRestaurant(this.state.restaurant, AuthStore.user.user_id);
+    socketStore.getRestaurant(this.props.restaurant, AuthStore.user.user_id);
   } else {
-    socketStore.getRestaurant(this.state.restaurant, null);
+    socketStore.getRestaurant(this.props.restaurant, null);
   }
 }
 ```
 So now that we have our method, we can go ahead and call it when our `Queue` component mounts.
+
+`Components/Queue/index.js`
 ```
-componentDidMount(){
-  this.restaurantRequest();
+class Queue extends Component {
+  ...
+
+  componentDidMount(){
+    this.restaurantRequest();
+  }
+  ...
 }
 ```
 
@@ -29,22 +39,40 @@ So, we need to setup a listener. We want our queue to start listening as soon as
 You might notice that in the `Queue` components state, we have `currentQ` and `position` variables. That is exactly where we will be storing our information.
 
 ```
-this.state = {
+constructor(props) {
+  ...
+
+  this.state = {
       currentQ: null,
       spot: null,
   };
+}
 ```
 
 So now our `Queue` has its ears perched for the `q info`, as soon we get the message, we will store that information in the state to be displayed to the user. 
 
 ```
-socketStore.socket.on("q info", data => {
-  this.setState({ currentQ: data.restaurantQ });
-});
+class Queue extends Component {
+  ...
 
-socketStore.socket.on("user spot", data => {
-    this.setState({ position: data.spot });
-});
+  componentDidMount() {
+    this.restaurantRequest();
+
+    socketStore.socket.on("q info", data => {
+      this.setState({ currentQ: data.restaurantQ });
+    });
+
+    socketStore.socket.on("user spot", data => {
+        this.setState({ position: data.spot });
+    });
+
+    socketStore.socket.on("update queue", () => {
+      this.restaurantRequest();
+    });
+  }
+
+  ...
+}
 ```
 
 Let’s take a brief look at the `q info` emitter from our node server. Our listener returns a data object with the following key [`restaurantQ`] which corresponds to the data we sent as seen below. 
@@ -62,17 +90,25 @@ You know how sometimes you wish you could tune some people out; well sockets pos
 
 We have three listeners set up waiting for `q info`, `user spot`, and `update queue`. 
 
+`Components/Queue/index.js`
 ```
-componentWillUnmount() {
+class Queue extends Component {
+  ...
+
+  componentWillUnmount() {
     socketStore.socket.off("q info");
     socketStore.socket.off("user spot");
     socketStore.socket.off("update queue");
   }
+
+  ...
+}
 ```
 
 If you continue to explore the `Queue`, you will notice the `getQueueNumber()` method.
 As a user I care about the number of people in the queue if I, myself, am not in the queue. So, we check whether the spot is null or not. If it is not null, we display the user’s position in the queue. If it is, we display the total number of people in the queue. 
 
+`Components/Queue/index.js`
 ```
 getQueueNumber() {
     if (this.state.spot) {
@@ -95,7 +131,7 @@ getQueueNumber() {
 
 This code has already been supplied for you, so you don’t need to worry about coding that functionality in, enjoy that good life. You will also notice that `getQueueOptions()` method that gives the option to join or leave the queue depending on the situation. That option is given in the form of a button. If the user is in the queue, s/he can’t join again, so the `leave q` button will be displayed and vice versa. The code is there, we simply need to make use of the buttons.
 
-Now that we are able to display the queue information, we can check that off our Trello board, and move it over to start the review pile.
+Now that we are able to display the queue information, we can check that off our Trello board, and move it over to start the finito pile.
 
 As we said the buttons are being rendered in `getQueueOptions()` depending on the situation. The leave button is pretty straightforward.
 Recall that we have access to two methods from our socket store:
@@ -104,6 +140,7 @@ Recall that we have access to two methods from our socket store:
 
 So, we will be calling the `leaveQ` function and passing it the queue object of the user upon pressing on the button. Once you have completed that functionality, go ahead and drag the card that describes the `leave the queue` functionality to `review`.
 
+`Components/Queue/index.js`
 ```
 getQueueOptions() {
     if (AuthStore.user !== null) {
@@ -113,7 +150,7 @@ getQueueOptions() {
             rounded
             light
             style={{ marginTop: 300 }}
-            onPress={() => socket.leaveQ(this.state.position);
+            onPress={() => socketStore.leaveQ(this.state.position.id);
             }
           >
             <Text>Leave Q</Text>
@@ -135,26 +172,34 @@ getQueueOptions() {
 
 However, the join button is rendered in a component of its own- `spinner`. We call this component if the position of the user does not exist and send along the `user id` and `restaurant id` as props.
 
-Go ahead and take a look at the spinner, it’s there to present an input for the number of guests before joining the queue. You'll find the join button there, so we will go ahead and add our `onPress` functionality to it to call the `addToQ` method from our socket store. 
+Go ahead and take a look at the spinner, it’s there to present an input for the number of guests before joining the queue. You'll find the join button there, so we will go ahead and add our `onPress` functionality to it to call the `joinQ` method from our socket store. Also, don't forget to import `socketStore`.
 
+`Components/Queue/spinner.js`
 ```
-return (
-  ...
+...
+import socketStore from "../../Stores/socketStore";
+...
 
-  <Button
-    rounded
-    light
-    onPress={() =>
-      socket.joinQ(
-        this.props.user,
-        this.props.restaurant,
-        this.state.numOfGuests
-      )
-    }
-  >
-    <Text>Join Q</Text>
-  </Button>
-)
+class Spinner extends Component {
+...
+    return (
+      ...
+
+      <Button
+        rounded
+        light
+        onPress={() =>
+          socketStore.joinQ(
+            this.props.user,
+            this.props.restaurant,
+            this.state.numOfGuests
+          )
+        }
+      >
+        <Text>Join Q</Text>
+      </Button>
+    );
+}
 ```
 
 There you have it! We are done with the customer side of this project. Make sure your Trello board reflects that by moving the final card in the `frontend` column to review. And now well, you can start reviewing.

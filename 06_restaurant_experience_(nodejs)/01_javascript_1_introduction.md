@@ -3,5 +3,5 @@ Had fun as a customer? It’s time to switch roles and become one with the unive
 Let’s go back to our node app and recall our checklist. It might be a foreign restaurant, but it is no longer foreign territory, now that you are familiar with sockets. 
 
 Restaurant Experience:  
-[ ] View entire queue   
-[ ] Ability to seat people from queue
+\[ \] View entire queue   
+\[ \] Ability to seat people from queue
