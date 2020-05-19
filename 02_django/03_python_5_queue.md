@@ -24,7 +24,7 @@ Your model should look like this:
 class Queue(models.Model):
     position = models.IntegerField()
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    restaurant = models.ForeignKey(Restaurant, on_delete = models.CASCADE, related_name = 'queue')
+    restaurant = models.ForeignKey(Restaurant, on_delete = models.CASCADE, related_name = 'queues')
     guests = models.IntegerField()
 ```
 
